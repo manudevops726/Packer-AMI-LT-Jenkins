@@ -35,7 +35,8 @@ pipeline {
             steps {
                 script {
                     def log = readFile('packer.log')
-                    def matcher = log =~ /amazon-ebs: AMI: (ami-[a-z0-9]+)/  // this should definitely match
+                    def matcher = log =~ /AMI:\s+(ami-[a-z0-9]+)/  // safer
+
 
                      if (matcher.find()) {
                         env.NEW_AMI_ID = matcher.group(1)
