@@ -25,7 +25,7 @@ source "amazon-ebs" "ubuntu-node" {
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
-    owners      = ["099720109477"]
+    owners      = ["342547628707"]
     most_recent = true
   }
 }
