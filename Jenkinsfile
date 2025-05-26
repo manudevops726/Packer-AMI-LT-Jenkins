@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script {
                     def log = readFile('packer.log')
-                    def matcher = log =~ /amazon-ebs: AMI: (ami-[a-z0-9]+)/
+                     def matcher = log =~ /AMI: (ami-[a-z0-9]+)/
                      if (matcher.find()) {
                         env.NEW_AMI_ID = matcher.group(1)
                         echo "New AMI ID: ${env.NEW_AMI_ID}"
@@ -52,9 +52,9 @@ pipeline {
               sh """
                 aws ec2 create-launch-template-version \\
                   --launch-template-id ${LAUNCH_TEMPLATE_ID} \\
-                  --version-description "Updated with AMI ${env.NEW_AMI_ID}" \\
+                   --version-description "Updated with AMI ${NEW_AMI_ID}" \\
                   --source-version 1 \\
-                  --launch-template-data '{\"ImageId\":\"${env.NEW_AMI_ID}\"}' \
+                  --launch-template-data '{"ImageId":"${NEW_AMI_ID}"}' \\
 
                   --region ${AWS_REGION}
               """
